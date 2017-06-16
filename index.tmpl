@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Story Builder</title>
+    
+ 
+    <script type='text/javascript' src='js/jquery-3.2.1.js'></script>
+    <script type='text/javascript' src="js/jquery-ui.js"></script>
+
+    <script type='text/javascript' src='js/story.js'></script>
+    <link rel="stylesheet" href='css/style.css'></link>
+    <link rel="stylesheet" href="css/jquery-ui.css"></link>
+</head>
+<body>
+ 
+    
+<div id='topBar'>
+    <span class='title'>Story Builder</span> 
+    <span style='float: right'>Chapter 
+        <select name='chapter' id='chapter_field'>
+            <option value="1">1</option>
+            <option value="+">Add New</option>
+        </select>
+    </span>
+</div>
+<div style='flex'>
+    <div id='sideBar'>
+        <div class='header' align='center'>Events</div>
+        <div class='content'>
+            
+        </div>
+    </div>
+
+<form name="storyForm" method='POST'>
+<div id='mainBar'>
+    
+   <div class="subhead" style="display: block; height: 8.5em;">
+        <div style='float: left;'>
+            <b>Event</b>:
+            <span id='eventTypeContainer'>
+            <select name="eventType" id="eventType_field" onChange="changeEventType();">
+                <option value=''>Choose...</option>
+                <option value="action">Action</option>
+                <option value="talk">Talk</option>
+                <option value="next">Next</option>
+            </select>
+            </span>
+            <p>
+            Key: 
+            <input name="eventKey" id='eventKey_field' size='16' class='inputField'>
+            </p>
+            <p>
+                Location:
+                <input type='text' name='location' id='location_field'>
+                <a id='addLocationLink' class='addLink'>+</a>
+            </p>
+            <p>
+                Person:
+                <input type='text' name='person' id='person_field'>
+                <a id='addPersonLink' class='addLink'>+</a>
+            </p>
+        </div>
+        <div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Text:
+            <textarea id="text_field" name="text" rows="7" cols="80"></textarea>
+    
+        </div>
+    </div>
+
+    <div class='subcontent' id='preReqArea' style='display: block;' style='clear:left;'>
+        <div style='float: left;'><b>PreReqs</b>:&nbsp;&nbsp;</div> 
+        <div class='lefty' style='float: left;'>
+            <input type='hidden' name='preReqCount' id='preReqCount_field' value='1' size="16">
+            Join: <select name="preReqJoin" id="preReqJoin_field" class='inputField'>
+                <option value='or'>OR</option>
+                <option value='and'>AND</option>
+            </select><br>
+            Type: <select name="preReqType_1" id="preReqType_1_field" class='inputField'>
+                <option value=''>Choose...</option>
+                <option value="skill">Skill</option>
+                <option value="trait">Trait</option>
+                <option value="item">Item</option>
+                <option value="no_skill">No Skill</option>
+                <option value="no_trait">No Trait</option>
+                <option value="no_item">No Item</option>
+            </select>
+            <select name="preReqThing_1" id="preReqThing_1_field" class='inputField'>
+            <option value=''></option>
+            </select>
+            <a id='addPreReqLink' onclick='addPreReqFields(); return false;' class='addLink'>+</a>
+        </div>
+        <br class="small" clear="both">
+    </div>
+
+    <div class='subcontent' id='choicesArea' style='display: block;' style='clear:left;'>
+        <div style='float: left;'><b>Choices</b>:&nbsp;&nbsp;</div> 
+        <div class='lefty' style='float: left;'>
+            <input type='hidden' name='choiceCount' id='choiceCount_field' value='1' size="16">
+            Key: <input class='inputField' type='text' id='choiceKey_1_field' name='choiceKey_1'>    Text: <input class='inputField' type='text' id='choiceText_1_field' name='choiceText_1' size="40">
+            <a id='addChoiceLink' onclick='addChoiceFields(); return false;' class='addLink'>+</a>
+        </div>
+        <br class="small" clear="both">
+    </div>
+
+    <div class='subcontent' id='talkArea' style='display: block;' style='clear:left;'>
+        <div style='float: left;'><b>Talk</b>:&nbsp;&nbsp;</div> 
+        <div class='lefty' style='float: left;'>
+            <input type='hidden' name='talkCount' id='talkCount_field' value='1' size="16">
+            Types: <input type='checkbox' name='talkCharm' id='talkCharm_field'>Charm&nbsp;
+                   <input type='checkbox' name='talkHumor' id='talkHumor_field'>Humor&nbsp;
+                   <input type='checkbox' name='talkInsult' id='talkInsult_field'>Insult&nbsp;
+                   <input type='checkbox' name='talkCautious' id='talkCautious_field'>Cautious&nbsp;
+                   <input type='checkbox' name='talkThreat' id='talkThreat_field'>Threat
+                   <br>
+            Reaction: <select name="talkReaction" id='talkReaction_field'>
+                      <option value='1'>1</option>
+                      <option value='2'>2</option>
+                      <option value='3'>3</option>
+                      <option value='4'>4</option>
+                      <option value='5'>5</option>
+                      <option value='6'>6</option>
+                      </select><br>
+            Yes: <input type='text' name="talkYes" id="talkYes_field" class='inputField'><br>
+             No: <input type='text' name="talkNo" id="talkNo_field" class='inputField'><br>
+             <!--
+            <a id='addChoiceLink' onclick='addChoiceFields(); return false;' class='addLink'>+</a>
+            -->
+        </div>
+        <br class="small" clear="both">
+    </div>
+
+    <div class='subcontent' id='effectsArea' style='display: block;' style='clear:left;'>
+        <div style='float: left;'><b>Effects</b>:&nbsp;&nbsp;</div> 
+        <div class='lefty' style='float: left;'>
+            <input type='hidden' name='effectsCount' id='effectsCount_field' value='1' size="16">
+            Type: <select class='inputField' id='effectsType_1_field' name='effectsType_1'>
+                <option value=''>Choose...</option>
+                <option value="plusSkill">Plus Skill</option>
+                <option value="plusTrait">Plus Trait</option>
+                <option value="plusItem">Plus Item</option>
+                <option value="plusLike">Plus Like</option>
+                <option value="plusTrust">Plus Trust</option>
+                <option value="plusLife">Plus Life</option>
+                <option value="plusCompanion">Plus Companion</option>
+                <option value="minusSkill">Minus Skill</option>
+                <option value="minusTrait">Minus Trait</option>
+                <option value="minusItem">Minus Item</option>
+                <option value="minusLike">Minus Like</option>
+                <option value="minusTrust">Minus Trust</option>
+                <option value="minusLife">Minus Life</option>
+            </select>
+            <select class='inputField' id='effectsThing_1_field' name='effectsThing_1'>
+            </select>
+            <a id='addEffectsLink' onclick='addEffectsFields(); return false;' class='addLink'>+</a>
+        </div>
+        <br class="small" clear="both">
+    </div>
+</div>
+</form>
+</div>
+
+<!-- person dialog -->
+<div id='addPersonDialog' title='Create Person'>
+    <form name='personForm' method='POST'>
+        Key: <input type='text' name='key' id='personKey_field' class="inputField" size="16">
+        <br>
+        Text: <input type='text' name='text' id='personText_field' size="40" class="inputField"> 
+    </form>
+</div>
+
+<!-- location dialog -->
+<div id='addLocationDialog' title='Create Location'>
+    <form name='locationForm' method='POST'>
+        Key: <input type='text' name='key' id='locationKey_field' class="inputField" size="!6">
+        <br>
+        Text: <input type='text' name='text' id='locationText_field' size="40" class="inputField"> 
+    </form>
+</div>
+
+<!-- message dialog -->
+<div id='messageDialog' title='Notice'>
+    <div id='messageContent'></div>
+</div>
+
+</body>
+</html>

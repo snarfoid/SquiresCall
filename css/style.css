@@ -1,0 +1,103 @@
+body {
+   padding: 0;
+   margin: 0;
+   font-family: Arial;
+}
+
+#topBar {
+  padding: 10px; 
+  background-color: #fc3;
+  border-bottom: 1px solid #999;
+}
+
+span.title {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+#sideBar {
+  width: 250;
+  height: 100%;
+  display: inline-block;
+  float: left;
+  background-color: #eee;
+  border-right: 1px solid #999;
+}
+
+div.content {
+  padding-left: 10px;
+  padding: 10px;
+}
+
+.sidebarLink {
+  font-size: 10pt;
+}
+
+div.header {
+    padding: 10px;
+    background-color: #ccc;
+    border-bottom: 1px solid #999;
+    text-align: center;
+}
+
+#mainBar {
+  vertical-align: top;
+  padding: 0px;
+  overflow:hidden;
+}
+
+a.addLink {
+  font-weight: bold;
+}
+
+div.subhead {
+  text-align: top;
+  border-bottom: 1px solid #999;
+  background-color: #cec;
+  padding: 10px;
+  width: 100%;
+  display: block;
+}
+
+div.subcontent {
+  border-bottom: 1px solid #999;
+  background-color: #efe;
+  padding: 10px;
+  width: 100%;
+  display: block;
+  line-height: 2em;
+}
+
+#choicesArea {
+  background-color: #9ce;
+}
+
+#preReqArea {
+  background-color: #2ee;
+}
+
+#talkArea {
+  background-color: #cc7;
+}
+
+#effectsArea {
+  background-color: #69f;
+}
+
+.lefty input {
+  padding-bottom: 4px;
+}
+
+.small {
+  height: 1px;
+}
+
+input.inputField {
+  margin: 3px;
+  line-height: 125%;
+}
+
+.ui-widget-overlay {
+   background-color: #000 !important;
+   opacity: 0.5 !important;
+}

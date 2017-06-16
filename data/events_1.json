@@ -1,0 +1,438 @@
+{
+    "breakFree": 
+    {
+        "type": "action",
+        "preReq": "strong",
+        "actions": [
+            "threatenMaldrey",
+            "runForIt"
+        ],
+        "next": [
+            {
+                "preReq":
+                {
+                    "getStatus": 
+                    {
+                        "maldrey": "wounded"
+                    }
+                }
+            }
+        ]
+    },
+    "continueFighting": 
+    {
+        "type": "action",
+        "callback": 
+        {
+            "loseTrait": "voice"
+        },
+        "lose": ["voice"],
+        "actions": [
+            "breakFree",
+            "stabAgain"
+        ],
+        "noActions": "dieByChoking"
+    },
+    "demandJustice": 
+    {
+        "type": "talk",
+        "person": "baroness",
+        "actions": ["maldreyIsBad",
+                    "treacheryIsBad",
+                    "treacheryRunAmok"],
+        "talk":
+        {
+            "maldreyIsBad": 
+            {
+                "trait": "insult",
+                "type": "power",
+                "person": "villain",
+                "plus": ["beauty"],
+                "minus": [
+                    "streetwise",
+                    "strong",
+                    "tough"
+                ],
+                "yes": "lockedUp",
+                "no": "baronAgreesWithMaldrey"
+            },
+            "treacheryIsBad": 
+            {
+                "trait": "charm",
+                "type": "courage",
+                "hinder": [
+                    "streetwise"
+                ],
+                "boost": [
+                    "voice"
+                ],
+                "person": "villain",
+                "yes": "baronWillLook",
+                "no": "baronAgreesWithMaldrey"
+            },
+            "treacheryRunAmok": 
+            {
+                "trait": "charm",
+                "type": "honor",
+                "boost": [
+                    "courtlyGraces",
+                    "voice"
+                ],
+                "yes": "baronWillLook",
+                "no": "baronAgreesWithMaldrey"
+            }
+        }
+    },
+    "dieByChoking": 
+    {
+        "type": "next",
+        "next": "youAreDead"
+    },
+    "howToStart": 
+    {
+        "type": "action",
+        "actions": [
+            "investigateTourneyGrounds",
+            "seekMedicalAid",
+            "donArmor"
+        ],
+        "location": "tourneyGrounds"
+    },
+    "intro": 
+    {
+        "type": "next",
+        "next": "intro2",
+        "image": "countryside.jpg",
+        "title": "baronyName"
+    },
+    "intro2": 
+    {
+        "type": "next",
+        "next": "intro3",
+        "image": "castle.jpg",
+        "title": "castleName"
+    },
+    "intro3": 
+    {
+        "type": "next",
+        "next": "intro4",
+        "image": "joust1.jpg",
+        "title": "tourneyGrounds"
+    },
+    "intro4": 
+    {
+        "type": "next",
+        "next": "intro5"
+    },
+    "intro5": 
+    {
+        "type": "next",
+        "next": "howToStart",
+        "more": [
+                 {"desc": "introBlood",
+                 "preReq": "fearOfBlood"
+                 }
+        ]
+    },
+    "investigateTourneyGrounds": 
+    {
+        "type": "action",
+        "more": [
+                 {
+                    "desc": "investigateWithFirstAid",
+                    "preReq": "firstAid"
+                 }
+        ],
+        "actions": [
+            "demandJustice",
+            "offerToSquire",
+            "seekMedicalAidLate"
+        ],
+        "notPreReq" : "fearOfBlood",
+        "location": "tourneyGrounds",
+        "trait": "cautious"
+    },
+    "judgeMaldreyResponse": 
+    {
+        "type": "action",
+        "person": "villain",
+        "actions": [
+            "runForIt",
+            "noRunning"
+        ]
+    },
+    "maldreyAcceptsSquire": 
+    {
+        "type": "next",
+        "next": "whatToWear",
+        "lose": { "item": ["currentItem"] },
+        "gain": { "ally": ["currentPerson"] },
+        "callbacks": [
+            {
+                "gainAlly": "villain"
+            },
+            {
+                "loseItem": "currentItem"
+            }
+        ]
+    },
+    "maldreyBrawl": 
+    {
+        "type": "action",
+        "actions": [
+            "continueFighting",
+            "yieldToMaldrey"
+        ]
+    },
+    "maldreyRejectsSquire": 
+    {
+        "type": "next",
+        "next": "whatToDoNow",
+        "callbacks": [
+            {
+                "loseItem": "currentItem"
+            }
+        ]
+    },
+    "maldreyStabsYou": 
+    {
+        "type": "next",
+        "next": "youAreDead"
+    },
+    "noRunning": 
+    {
+        "type": "next",
+        "person": "villain",
+        "dialogOrder": [
+            "you",
+            "villain"
+        ],
+        "next": "maldreyStabsYou"
+    },
+    "offerToSquire": 
+    {
+        "type": "action",
+        "trait": "power",
+        "person": "villain",
+        "subject": "apprenticeship",
+        "actions": [
+            "offerMaldreySilver",
+            "offerFamilyRing",
+            "swearAnOath",
+            "threatenMaldrey",
+            "quickStabMaldrey"
+        ]
+    },
+    "moneyIsPrecious": {
+        "type" : "talk",
+        "talkType" : "charm",
+        "reaction": 0,
+        "plus" : ["powerHungry", "self", "courage"],
+        "minus": ["honor", "compassion"],
+        "yes": "maldreyAcceptsSquire",
+        "no": "maldreyRejectsSquire"
+    },
+    "loveMoney" : {
+        "type" : "talk",
+        "talkType" : "humor",
+        "reaction": -2,
+        "plus" : ["voice", "self", "strong"],
+        "minus" : ["compassion", "honor"],
+        "yes": "maldreyAcceptsSquire",
+        "no": "maldreyRejectsSquire"
+    },
+    "obeyMoney": {
+        "type" : "talk",
+        "talkType" : "insult",
+        "reaction": -1,
+        "plus" : ["powerHungry", "streetwise", "greed", "truth", "courage"],
+        "minus": ["honor"],
+        "yes": "maldreyAcceptsSquire",
+        "no": "maldreyRejectsSquire"
+    },
+    "offerMaldreySilver":
+    {
+        "type": "action",
+        "item": "pouchOfSilver",
+        "preReq": "pouchOfSilver",
+        "notPreReq" : "greed",
+        "actions" : [ "obeyMoney", "moneyIsPrecious", "loveMoney"]
+    },
+    "youVulture": {
+        "type" : "talk",
+        "talkTypes" : ["insult", "courage", "truth"],
+        "reaction": 2,
+        "plus" : ["honor", "truth", "courage"],
+        "minus": ["streetwise"],
+        "yes": "maldreyAcceptsSquire",
+        "no": "maldreyRejectsSquire"
+    },
+    "newFamily": {
+        "type" : "talk",
+        "talkTypes" : ["charm", "compassion"],
+        "reaction": 0,
+        "plus" : ["truth", "honor", "heraldry", "voice"],
+        "minus": ["streetwise"],
+        "yes": "maldreyAcceptsSquire",
+        "no": "maldreyRejectsSquire"
+    },
+    "offerFamilyRing":
+    {
+        "type": "talk",
+        "item": "familyRing",
+        "preReq": "familyRing",
+        "actions" : ["youVulture", "newFamily"],
+        "yes": "maldreyAcceptsSquire",
+        "no": "maldreyRejectsSquire"
+    },
+    "quickStabMaldrey":
+    {
+        "currentItem": "dagger",
+        "prereq": [
+            "dagger"
+        ],
+        "more":
+        {
+            "preReq": "fast",
+            "tag": "cutMaldrey",
+            "callback":
+            {
+                "setStatus":
+                {
+                    "maldrey": "wounded"
+                }
+            }
+        },
+        "next": [
+            {
+                "preReq": "brawling",
+                "index": "maldreyBrawl"
+            },
+            {
+                "noprereq": "brawling",
+                "index": "maldreyRejectsSquire"
+            }
+        ]
+    },
+    "runForIt":
+    {
+        "type": "next",
+        "next": "whatToDoNow"
+    },
+    "seekMedicalAid":
+    {
+        "type": "talk",
+        "trait": "status",
+        "people": "Celina",
+        "talk": [
+            {
+                "start": "ICanHelp",
+                "to": "Celina",
+                "yes": "CelinaHelps",
+                "no": "CelinaDenied"
+            }
+        ]
+    },
+    "seekMedicalAidLate":
+    {
+        "inherit": "seekMedicalAid"
+    },
+    "stabAgain":
+    {
+        "type": "action",
+        "preReq": "tough"
+    },
+    "swearAnOath":
+    {
+        "type": "talk",
+        "talk":
+        {
+            "pledgeService":
+            {
+                "preReq":
+                {
+                    "skill": "courtlyGraces"
+                },
+                "trait": "charm",
+                "type": "honor",
+                "more": [
+                    {
+                        "prereq": "spirits",
+                        "desc": "byAllSpirits",
+                        "tag": "more"
+                    },
+                    {
+                        "prereq": "noSpirits",
+                        "desc": "spiritsBeDamned",
+                        "tag": "more"
+                    }
+                ]
+            },
+            "pledgeHalf":
+            {
+                "trait": "insult",
+                "type": "courage",
+                "more": [
+                    {
+                        "preReq": "spirits",
+                        "desc": "byAllSpirits",
+                        "tag": "more"
+                    },
+                    {
+                        "preReq": "noSpirits",
+                        "desc": "spiritsBeDamned",
+                        "tag": "more"
+                    }
+                ]
+            },
+            "pledgeLow":
+            {
+                "trait": "insult",
+                "type": "honest"
+            }
+        },
+        "yes": "maldreyAcceptsSquire",
+        "no": "maldreyRejectsSquire"
+    },
+    "threatenMaldrey":
+    {
+        "type": "action",
+        "next":
+        {
+            "prereq":
+            {
+                "getStatus":
+                {
+                    "maldrey": "wounded"
+                }
+            },
+            "index": "maldreyStabsYou"
+        },
+        "actions": [
+            "runForIt",
+            "judgeMaldreyResponse"
+        ]
+    },
+    "whatToWear": 
+    {
+        "type": "action",
+        "actions": [
+            "feastAsIs",
+            "buyFancyClothes",
+            "stealFancyClothes"
+        ]
+    },
+    "yieldToMaldrey": 
+    {
+        "type": "next",
+        "next": "runForIt"
+    },
+    "celinaHelps": 
+    {
+        "type": "action",
+        "actions": [
+            "whyAreYouHere",
+            "rollInHay"
+        ]
+    }
+}

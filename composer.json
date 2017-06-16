@@ -1,0 +1,22 @@
+{
+    "name": "/rest",
+    "description": "Simple Tool to manage metadata for a story app I am creating",
+    "authors": [
+        {
+            "name": "Robert Field",
+            "email": "snarfoid@yahoo.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SquiresCall\\": "."
+        }
+    },
+
+    "require": {
+        "respect/rest": "^0.6.0",
+        "webmozart/json": "^1.2",
+        "webmozart/assert": "^1.2",
+        "mikegarde/braces-template": "^0.1.0"
+    }
+}
